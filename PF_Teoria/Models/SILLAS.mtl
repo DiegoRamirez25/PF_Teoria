@@ -1,7 +1,7 @@
 # Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material.009
+newmtl Material.031
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,7 +16,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd cafe2.jpg
 
-newmtl Material.010
+newmtl Material.032
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd cafe2.jpg
 
-newmtl Material.078
+newmtl Material.033
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd metal.jpg
 
-newmtl Material.079
+newmtl Material.034
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +61,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd metal.jpg
 
-newmtl Material.095
+newmtl Material.037
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -76,7 +76,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd metal.jpg
 
-newmtl Material.183
+newmtl Material.038
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000

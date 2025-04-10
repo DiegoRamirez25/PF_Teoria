@@ -1,7 +1,22 @@
 # Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material.015
+newmtl Material.074
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd negro.jpg
+
+newmtl Material.110
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
@@ -16,7 +31,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl Material.066
+newmtl Material.113
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.114
+newmtl Material.119
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +61,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.115
+newmtl Material.120
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +76,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.116
+newmtl Material.121
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -76,22 +91,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.117
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd negro.jpg
-
-newmtl Plastic.001
+newmtl Plastic.008
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -106,7 +106,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Plastic.004
+newmtl Plastic.009
 Kd 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
@@ -121,7 +121,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl Stainless_Steel_Clean.001
+newmtl Stainless_Steel_Clean.003
 Kd 0.353923 0.411391 0.430130
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
@@ -136,7 +136,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl material_0.001
+newmtl material_0.005
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -151,7 +151,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl material_1.001
+newmtl material_1.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -166,7 +166,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl material_2.001
+newmtl material_2.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -181,7 +181,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd verde.jpg
 
-newmtl material_3.001
+newmtl material_3.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -196,7 +196,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd rosaf.jpg
 
-newmtl material_4.001
+newmtl material_4.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -211,7 +211,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd rosa.jpg
 
-newmtl material_5.001
+newmtl material_5.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -226,7 +226,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl material_6.001
+newmtl material_6.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -241,7 +241,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd verdec.jpg
 
-newmtl material_7.001
+newmtl material_7.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -256,7 +256,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd verdec.jpg
 
-newmtl material_9.001
+newmtl material_9.003
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
