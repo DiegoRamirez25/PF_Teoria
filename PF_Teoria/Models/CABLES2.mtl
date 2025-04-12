@@ -1,7 +1,7 @@
 # Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material
+newmtl Material.231
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,7 +16,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.003
+newmtl Material.232
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.012
+newmtl Material.233
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.020
+newmtl Material.234
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +61,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.022
+newmtl Material.235
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -76,7 +76,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.024
+newmtl Material.236
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -91,7 +91,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.025
+newmtl Material.237
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -106,7 +106,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.059
+newmtl Material.238
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -121,7 +121,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.060
+newmtl Material.239
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -136,7 +136,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.061
+newmtl Material.240
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -151,7 +151,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.062
+newmtl Material.241
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -166,7 +166,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.063
+newmtl Material.242
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -181,7 +181,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.064
+newmtl Material.243
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -196,7 +196,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.075
+newmtl Material.244
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -211,7 +211,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.076
+newmtl Material.245
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -226,7 +226,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.077
+newmtl Material.246
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -241,7 +241,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.105
+newmtl Material.247
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -256,7 +256,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.106
+newmtl Material.248
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -271,7 +271,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.107
+newmtl Material.249
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -286,7 +286,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.108
+newmtl Material.250
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -301,7 +301,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl TORNILLO
+newmtl TORNILLO.024
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -316,7 +316,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.001
+newmtl TORNILLO.025
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -331,7 +331,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.002
+newmtl TORNILLO.026
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -346,7 +346,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.003
+newmtl TORNILLO.027
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -361,7 +361,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.004
+newmtl TORNILLO.028
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -376,7 +376,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.005
+newmtl TORNILLO.029
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -391,7 +391,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.006
+newmtl TORNILLO.030
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -406,7 +406,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl TORNILLO.007
+newmtl TORNILLO.031
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -421,7 +421,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl carcasa
+newmtl carcasa.024
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -436,7 +436,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.001
+newmtl carcasa.025
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -451,7 +451,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.002
+newmtl carcasa.026
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -466,7 +466,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.003
+newmtl carcasa.027
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -481,7 +481,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.004
+newmtl carcasa.028
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -496,7 +496,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.005
+newmtl carcasa.029
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -511,7 +511,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.006
+newmtl carcasa.030
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -526,7 +526,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl carcasa.007
+newmtl carcasa.031
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -541,7 +541,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd blanco.jpg
 
-newmtl fondo
+newmtl fondo.024
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -556,7 +556,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.001
+newmtl fondo.025
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -571,7 +571,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.002
+newmtl fondo.026
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -586,7 +586,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.003
+newmtl fondo.027
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -601,7 +601,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.004
+newmtl fondo.028
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -616,7 +616,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.005
+newmtl fondo.029
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -631,7 +631,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.006
+newmtl fondo.030
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -646,7 +646,7 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 
-newmtl fondo.007
+newmtl fondo.031
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000

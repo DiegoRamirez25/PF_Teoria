@@ -1,13 +1,13 @@
-# Blender 4.4.0 MTL File: 'PF.blend'
+# Blender 4.4.0 MTL File: 'None'
 # www.blender.org
 
-newmtl Material.064
+newmtl Scene_-_Root.001
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 0.600000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
