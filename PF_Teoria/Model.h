@@ -20,14 +20,14 @@
 
 using namespace std;
 
-GLint TextureFromFile(const char *path, string directory);
+GLint TextureFromFile(const char* path, string directory);
 
 class Model
 {
 public:
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D model.
-	Model(GLchar *path)
+	Model(GLchar* path)
 	{
 		this->loadModel(path);
 	}
@@ -47,13 +47,13 @@ private:
 	string directory;
 	vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
-										/*  Functions   */
-										// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+	/*  Functions   */
+	// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
 	void loadModel(string path)
 	{
 		// Read file via ASSIMP
 		Assimp::Importer importer;
-		const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		// Check for errors
 		if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
@@ -88,7 +88,7 @@ private:
 		}
 	}
 
-	Mesh processMesh(aiMesh *mesh, const aiScene *scene)
+	Mesh processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		// Data to fill
 		vector<Vertex> vertices;
@@ -101,7 +101,7 @@ private:
 			Vertex vertex;
 			glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 
-							  // Positions
+			// Positions
 			vector.x = mesh->mVertices[i].x;
 			vector.y = mesh->mVertices[i].y;
 			vector.z = mesh->mVertices[i].z;
@@ -168,7 +168,7 @@ private:
 
 	// Checks all material textures of a given type and loads the textures if they're not loaded yet.
 	// The required info is returned as a Texture struct.
-	vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
+	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
 	{
 		vector<Texture> textures;
 
@@ -207,30 +207,43 @@ private:
 	}
 };
 
-GLint TextureFromFile(const char *path, string directory)
+GLint TextureFromFile(const char* path, string directory)
 {
-	//Generate texture ID and load texture data
-	string filename = string(path);
-	filename = directory + '/' + filename;
+	string filename = directory + '/' + string(path);
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 
-	int width, height;
+	int width = 0, height = 0, channels = 0;
+	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &channels, SOIL_LOAD_AUTO);
 
-	unsigned char *image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+	// ? AQUI DECLARAMOS FUERA DEL IF
+	static unsigned char whitePixel[4] = { 255, 255, 255, 255 };
 
-	// Assign texture to ID
+	if (!image || width == 0 || height == 0)
+	{
+		std::cerr << "[ERROR] No se pudo cargar la textura: " << filename << std::endl;
+		std::cerr << "         Usando textura blanca de emergencia (1x1 píxel).\n";
+
+		width = height = 1;
+		channels = 3;
+		image = whitePixel;
+	}
+
+	GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
+
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	// Parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
-	SOIL_free_image_data(image);
+
+	if (image != whitePixel)
+		SOIL_free_image_data(image);
 
 	return textureID;
 }
+

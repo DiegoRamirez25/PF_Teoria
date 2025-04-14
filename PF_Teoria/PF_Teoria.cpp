@@ -1,9 +1,3 @@
-/*
-Prática 10
-Ramírez Moreno Diego Gerardo
-319296738
-06 de marzo del 2025
-*/
 #include <iostream>
 #include <cmath>
 
@@ -174,18 +168,19 @@ int main()
 	Shader lightingShader("Shader/lighting.vs", "Shader/lighting.frag");
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
-	//models
+	// =-=-=- LAB ACTUAL =-=-=-
+
+	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
 	Model medicion3((char*)"Models/MEDICION3.obj");
 	Model medicion4((char*)"Models/MEDICION4.obj");
 	Model mesas((char*)"Models/MESAS.obj");
+	Model sillas((char*)"Models/SILLAS.obj");
 	Model monitores((char*)"Models/MONITORES.obj");
 	Model cables((char*)"Models/CABLES.obj");
 	Model cables2((char*)"Models/CABLES2.obj");
 	Model cables3((char*)"Models/CABLES3.obj");
-	Model lab((char*)"Models/LAB.obj");
-	Model sillas((char*)"Models/SILLAS.obj");
 	Model mouse((char*)"Models/MOUSES.obj");
 	Model mouse2((char*)"Models/MOUSES2.obj");
 	Model mouse3((char*)"Models/MOUSES3.obj");
@@ -195,6 +190,33 @@ int main()
 	Model gabinete((char*)"Models/GABINETES.obj");
 	Model gabinete2((char*)"Models/GABINETES2.obj");
 	Model gabinete3((char*)"Models//GABINETES3.obj");
+
+
+	// =-=-=- LAB NUEVO =-=-=-+
+
+	Model labN((char*)"Models/LABN.obj");
+	Model medicionLN((char*)"Models/MEDICION_LN.obj");
+	Model medicionLN2((char*)"Models/MEDICION_LN2.obj");
+	Model medicionLN3((char*)"Models/MEDICION_LN3.obj");
+	Model medicionLN4((char*)"Models/MEDICION_LN4.obj");
+	Model mesasLN((char*)"Models/MESAS_LN.obj");
+	Model gabinetesLN((char*)"Models/GABINETES_LN.obj");
+	Model gabinetesLN2((char*)"Models/GABINETES_LN2.obj");
+	Model gabinetesLN3((char*)"Models/GABINETES_LN3.obj");
+	Model monitorLN((char*)"Models/MONITORES_LN.obj");
+	Model monitorLN2((char*)"Models/MONITORES_LN2.obj");
+	Model monitorLN3((char*)"Models/MONITORES_LN3.obj");
+	Model monitorLN4((char*)"Models/MONITORES_LN4.obj");
+	Model tecladoLN((char*)"Models/TECLADOS_LN.obj");
+	Model tecladoLN2((char*)"Models/TECLADOS_LN2.obj");
+	Model tecladoLN3((char*)"Models/TECLADOS_LN3.obj");
+	Model mouseLN((char*)"Models/MOUSES_LN.obj");
+	Model mouseLN2((char*)"Models/MOUSES_LN2.obj");
+	Model mouseLN3((char*)"Models/MOUSES_LN3.obj");
+	Model cablesLN((char*)"Models/CABLES_LN.obj");
+	Model cablesLN2((char*)"Models/CABLES_LN2.obj");
+	Model cablesLN3((char*)"Models/CABLES_LN3.obj");
+	Model sillasLN((char*)"Models/SILLAS_LN.obj");
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -311,7 +333,8 @@ int main()
 
 
 		//Carga de modelo 
-		//-------------  BUENOS  ---------------
+		// =-=-=- LAB ACTUAL =-=-=-
+
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
@@ -413,6 +436,123 @@ int main()
 		medicion4.Draw(lightingShader);
 
 
+
+		// =-=-=- LAB NUEVO =-=-=-
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		medicionLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		medicionLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		medicionLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		medicionLN4.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		mesasLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		gabinetesLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		gabinetesLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		gabinetesLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		monitorLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		monitorLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		monitorLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		monitorLN4.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		tecladoLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		tecladoLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		tecladoLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		mouseLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		mouseLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		mouseLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		labN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		cablesLN.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		cablesLN2.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		cablesLN3.Draw(lightingShader);
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		sillasLN.Draw(lightingShader);
 
 		glBindVertexArray(0);
 		// Also draw the lamp object, again binding the appropriate shader
