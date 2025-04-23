@@ -1,7 +1,7 @@
-# Blender 4.4.0 MTL File: 'PF2.blend'
+# Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material.445
+newmtl Material.538
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,7 +16,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_0.jpg
 
-newmtl Material.446
+newmtl Material.539
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_0.jpg
 
-newmtl Material.447
+newmtl Material.540
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_0.jpg
 
-newmtl Material.448
+newmtl Material.541
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000

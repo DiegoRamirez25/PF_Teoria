@@ -1,7 +1,22 @@
-# Blender 4.4.0 MTL File: 'PF2.blend'
+# Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material.002
+newmtl Material.1579
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.804041
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
+newmtl Material.606
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,22 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_3.jpg
 
-newmtl Material.004
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 3
-Pr 0.500000
-Pm 0.925620
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd Image_2.jpg
-
-newmtl Material.006
+newmtl Material.607
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negrol.png
 
-newmtl Material.027
+newmtl Material.608
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +61,22 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_2.jpg
 
-newmtl Material.079
+newmtl Material.609
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+Pr 0.500000
+Pm 0.925620
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd Image_2.jpg
+
+newmtl Material.610
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -76,7 +91,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.080
+newmtl Material.611
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -91,7 +106,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.081
+newmtl Material.612
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -106,7 +121,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Material.082
+newmtl Material.613
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -120,3 +135,108 @@ Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
+
+newmtl Plastic.010
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.776393
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/negro.jpg
+
+newmtl biru_tua.009
+Kd 0.011359 0.028534 0.083989
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
+newmtl biru_tua.014
+Kd 0.011359 0.028534 0.083989
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
+newmtl biru_tua.015
+Kd 0.011359 0.028534 0.083989
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
+newmtl putih.008
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd gris.jpg
+
+newmtl putih.013
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd gris.jpg
+
+newmtl putih.014
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd gris.jpg

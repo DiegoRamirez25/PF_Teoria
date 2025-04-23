@@ -1,4 +1,4 @@
-# Blender 4.4.0 MTL File: 'PF2.blend'
+# Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
 newmtl Black
@@ -46,7 +46,22 @@ aniso 0.000000
 anisor 0.000000
 map_Kd tierra.jpg
 
-newmtl Material.005
+newmtl Material.030
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd cafe.jpg
+
+newmtl Material.053
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +76,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd cafe2.jpg
 
-newmtl Material.011
+newmtl Material.054
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -74,7 +89,7 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd cafe.jpg
+map_Kd negrol.png
 
 newmtl Material.1011
 Ks 0.105699 0.105699 0.105699
@@ -3181,21 +3196,6 @@ aniso 0.000000
 anisor 0.000000
 map_Kd cafe2.jpg
 
-newmtl Material.138
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd negrol.png
-
 newmtl Material.1380
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
@@ -3301,6 +3301,36 @@ aniso 0.000000
 anisor 0.000000
 map_Kd intel_logo_moderno_cafe.jpg
 
+newmtl Material.275
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.804041
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
+newmtl Material.281
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.804041
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+
 newmtl Material_2
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
@@ -3313,23 +3343,38 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd C:/Users/Diego/Documents/textures/Image_0.png
-map_d C:/Users/Diego/Documents/textures/Image_0.png
+map_Kd Image_0.png
+map_d Image_0.png
 
-newmtl Scene_-_Root.005
-Kd 0.800000 0.800000 0.800000
+newmtl Plastic.004
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 0.776393
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
+map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/negro.jpg
+
+newmtl Plastic.006
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+Pr 0.776393
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/negro.jpg
 
 newmtl Screen1
 Ks 0.500000 0.500000 0.500000

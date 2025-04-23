@@ -1,7 +1,7 @@
-# Blender 4.4.0 MTL File: 'PF.blend'
+# Blender 4.4.0 MTL File: 'None'
 # www.blender.org
 
-newmtl Material.566
+newmtl Material.2937
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -14,9 +14,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.567
+newmtl Material.2938
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -29,9 +29,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.568
+newmtl Material.2939
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -44,9 +44,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.569
+newmtl Material.2940
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -59,9 +59,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.570
+newmtl Material.2941
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -74,9 +74,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.571
+newmtl Material.2942
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -89,9 +89,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.572
+newmtl Material.2943
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -104,9 +104,9 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.573
+newmtl Material.2944
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -119,184 +119,124 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd cafe.jpg
 
-newmtl Material.574
+newmtl sofa_tela.128
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.575
+newmtl sofa_tela.129
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.576
+newmtl sofa_tela.130
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.577
+newmtl sofa_tela.131
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.578
+newmtl sofa_tela.132
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.579
+newmtl sofa_tela.133
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.580
+newmtl sofa_tela.134
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
+map_Kd Image_1.022.jpg
 
-newmtl Material.581
+newmtl sofa_tela.135
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-Pr 0.500000
+Pr 1.000000
 Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
-
-newmtl putih.001
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/gris.jpg
-
-newmtl putih.002
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/gris.jpg
-
-newmtl putih.003
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/gris.jpg
-
-newmtl putih.004
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd C:/Users/Diego/Documents/GitHub/PF_Teoria/PF_Teoria/Models/gris.jpg
+map_Kd Image_1.022.jpg

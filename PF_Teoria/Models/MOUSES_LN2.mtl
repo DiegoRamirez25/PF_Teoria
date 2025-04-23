@@ -1,7 +1,7 @@
-# Blender 4.4.0 MTL File: 'PF2.blend'
+# Blender 4.4.0 MTL File: 'PF.blend'
 # www.blender.org
 
-newmtl Material.009
+newmtl Material.2110
 Ks 0.142309 0.142309 0.142309
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,7 +16,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negrol.png
 
-newmtl Scene_-_Root.010
+newmtl Scene_-_Root.020
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Scene_-_Root.011
+newmtl Scene_-_Root.021
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Scene_-_Root.012
+newmtl Scene_-_Root.022
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -61,7 +61,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negro.jpg
 
-newmtl Scene_-_Root.013
+newmtl Scene_-_Root.023
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
