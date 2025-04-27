@@ -1,7 +1,7 @@
 # Blender 4.4.0 MTL File: 'None'
 # www.blender.org
 
-newmtl Material.010
+newmtl Material.031
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -16,7 +16,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_3.jpg
 
-newmtl Material.011
+newmtl Material.032
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -31,7 +31,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd negrol.png
 
-newmtl Material.012
+newmtl Material.034
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -46,7 +46,7 @@ aniso 0.000000
 anisor 0.000000
 map_Kd Image_2.jpg
 
-newmtl Material.014
+newmtl Material.035
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
@@ -59,49 +59,4 @@ Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negrol.png
-
-newmtl Material.019
-Kd 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-
-newmtl Material.021
-Kd 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-
-newmtl Material.1702
-Kd 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
+map_Kd negro.jpg
