@@ -373,6 +373,9 @@ bool moveBackward = false;
 // Variables de control para rotaciones
 float targetRotation = 0.0f;  // Rotación objetivo
 
+bool modoNoche = false;
+GLuint cubemapDia, cubemapNoche;
+
 float vertices[] = {
 	 -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -485,8 +488,8 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 
-	/*Model lab((char*)"Models/LAB.obj");
-	Model medicion((char*)"Models/MEDICION.obj");
+	Model lab((char*)"Models/LAB.obj");
+	/*Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
 	Model medicion3((char*)"Models/MEDICION3.obj");
 	Model medicion4((char*)"Models/MEDICION4.obj");
@@ -528,8 +531,8 @@ int main()
 
 	// =-=-=- LAB NUEVO =-=-=-+
 
-	/*Model labN((char*)"Models/LABN.obj");
-	Model medicionLN((char*)"Models/MEDICION_LN.obj");
+	Model labN((char*)"Models/LABN.obj");
+	/*Model medicionLN((char*)"Models/MEDICION_LN.obj");
 	Model medicionLN2((char*)"Models/MEDICION_LN2.obj");
 	Model medicionLN3((char*)"Models/MEDICION_LN3.obj");
 	Model medicionLN4((char*)"Models/MEDICION_LN4.obj");
@@ -661,15 +664,30 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 
 	//Load textures
-	vector < const GLchar* > faces;
-	faces.push_back("SkyBoxDia/right.jpg");
-	faces.push_back("SkyBoxDia/left.jpg");
-	faces.push_back("SkyBoxDia/top.jpg");
-	faces.push_back("SkyBoxDia/bottom.jpg");
-	faces.push_back("SkyBoxDia/back.jpg");
-	faces.push_back("SkyBoxDia/front.jpg");
+	// Skybox de día
+	std::vector<const GLchar*> carasDia = {
+		"SkyBoxDia/right.jpg",
+		"SkyBoxDia/left.jpg",
+		"SkyBoxDia/top.jpg",
+		"SkyBoxDia/bottom.jpg",
+		"SkyBoxDia/back.jpg",
+		"SkyBoxDia/front.jpg"
+	};
 
-	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
+	cubemapDia = TextureLoading::LoadCubemap(carasDia);
+
+	// Skybox de noche
+	std::vector<const GLchar*> carasNoche = {
+		"SkyBoxNoche/right.png",
+		"SkyBoxNoche/left.png",
+		"SkyBoxNoche/top.png",
+		"SkyBoxNoche/bottom.png",
+		"SkyBoxNoche/back.png",
+		"SkyBoxNoche/front.png"
+	};
+
+
+	cubemapNoche = TextureLoading::LoadCubemap(carasNoche);
 
 	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 
@@ -789,10 +807,24 @@ int main()
 		}
 
 		// Directional light
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"), 0.6f, 0.6f, 0.6f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.6f, 0.6f, 0.6f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"), 0.3f, 0.3f, 0.3f);
+		int idx = todasLasLuces.size() - 1;
+		std::string base = "pointLights[" + std::to_string(idx) + "].";
+
+		if (modoNoche) {
+			// Luz nocturna más clara
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"), 0.18f, 0.18f, 0.25f);
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.2f, 0.2f, 0.35f);     // más luz difusa
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"), 0.3f, 0.3f, 0.4f);     // brillos más claros
+		}
+		else {
+			// Luz brillante para el día
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"), 0.4f, 0.4f, 0.4f);
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.6f, 0.6f, 0.6f);
+			glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"), 0.8f, 0.8f, 0.8f);
+		}
+
 
 
 		// Point light 1
@@ -801,46 +833,62 @@ int main()
 		lightColor.y = abs(sin(glfwGetTime() * Light1.y));
 		lightColor.z = sin(glfwGetTime() * Light1.z);
 
+			// ===---===---=== LUCES DE TECHO Y MONITORES CON ANIMACIÓN EN MONITORES ---===---===---===
+			bool noche = modoNoche;  // Usa tu variable real
 
-		// ===---===---=== LUCES DE TECHO Y MONITORES CON ANIMACIÓN EN MONITORES ---===---===---===
-		for (int i = 0; i < todasLasLuces.size(); i++) {
-			std::string idx = std::to_string(i);
-			std::string base = "pointLights[" + idx + "].";
+			for (int i = 0; i < todasLasLuces.size(); i++) {
+				std::string idx = std::to_string(i);
+				std::string base = "pointLights[" + idx + "].";
 
-			glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "position").c_str()),
-				todasLasLuces[i].x, todasLasLuces[i].y, todasLasLuces[i].z);
+				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "position").c_str()),
+					todasLasLuces[i].x, todasLasLuces[i].y, todasLasLuces[i].z);
 
-			if (i <= 10) {
-				// Luces cálidas
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()), 0.05f, 0.04f, 0.03f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()), 0.2f, 0.18f, 0.15f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()), 0.3f, 0.25f, 0.2f);
-			}
-			else if (i >= 11 && i <= 32) {
-				// Luces blancas
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()), 0.04f, 0.03f, 0.02f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()), 0.2f, 0.17f, 0.1f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()), 0.3f, 0.25f, 0.2f);
-			}
-			else if (i >= 33 && i <= 40) {
-				// Luces azules animadas (monitores)
-				float t = glfwGetTime();
-				float flicker = abs(sin(t * 2.0f + i));
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()), 0.01f, 0.01f, 0.05f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()), 0.4f * flicker, 0.4f * flicker, 1.0f * flicker);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()), 0.5f * flicker, 0.5f * flicker, 1.0f * flicker);
-			}
-			else {
-				// 🔶 Luces del lab nuevo: cálidas y tenues
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()), 0.02f, 0.015f, 0.01f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()), 0.1f, 0.08f, 0.05f);
-				glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()), 0.2f, 0.15f, 0.1f);
-			}
+				if (i <= 10) {
+					// 🔆 Luces cálidas
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()),
+						noche ? 0.07f : 0.04f, noche ? 0.06f : 0.03f, noche ? 0.05f : 0.02f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()),
+						noche ? 0.5f : 0.2f, noche ? 0.4f : 0.15f, noche ? 0.3f : 0.1f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()),
+						noche ? 0.7f : 0.3f, noche ? 0.5f : 0.2f, noche ? 0.4f : 0.15f);
+				}
+				else if (i >= 11 && i <= 32) {
+					// 💡 Luces blancas
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()),
+						noche ? 0.03f : 0.01f, noche ? 0.03f : 0.007f, noche ? 0.025f : 0.005f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()),
+						noche ? 0.6f : 0.05f, noche ? 0.5f : 0.04f, noche ? 0.4f : 0.025f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()),
+						noche ? 1.0f : 0.1f, noche ? 0.9f : 0.07f, noche ? 0.8f : 0.05f);
+				}
+				else if (i >= 33 && i <= 40) {
+					// 💡 Parpadeantes
+					float t = glfwGetTime();
+					float flicker = abs(sin(t * 2.0f + i));
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()),
+						noche ? 0.02f : 0.01f, noche ? 0.015f : 0.007f, noche ? 0.012f : 0.005f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()),
+						noche ? 0.6f * flicker : 0.05f, noche ? 0.5f * flicker : 0.04f, noche ? 0.9f * flicker : 0.025f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()),
+						noche ? 0.8f * flicker : 0.1f, noche ? 0.7f * flicker : 0.07f, noche ? 1.0f * flicker : 0.05f);
+				}
+				else {
+					// 🔶 Lab nuevo
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "ambient").c_str()),
+						noche ? 0.03f : 0.02f, noche ? 0.025f : 0.015f, noche ? 0.02f : 0.01f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "diffuse").c_str()),
+						noche ? 0.2f : 0.1f, noche ? 0.15f : 0.08f, noche ? 0.1f : 0.05f);
+					glUniform3f(glGetUniformLocation(lightingShader.Program, (base + "specular").c_str()),
+						noche ? 0.3f : 0.2f, noche ? 0.25f : 0.15f, noche ? 0.2f : 0.1f);
+				}
 
-			glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "constant").c_str()), 1.0f);
-			glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "linear").c_str()), 0.14f);
-			glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "quadratic").c_str()), 0.07f);
-		}
+				// 📏 Atenuación (más fuerte de día)
+				glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "constant").c_str()), 1.0f);
+				glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "linear").c_str()),
+					noche ? 0.09f : 0.14f);
+				glUniform1f(glGetUniformLocation(lightingShader.Program, (base + "quadratic").c_str()),
+					noche ? 0.032f : 0.07f);
+			}
 
 
 
@@ -987,11 +1035,11 @@ int main()
 		//Carga de modelo 
 		// =-=-=- LAB ACTUAL =-=-=-
 
-		//model = glm::mat4(1);
-		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		//lab.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		lab.Draw(lightingShader);
 
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
@@ -1174,11 +1222,11 @@ int main()
 
 		// =-=-=- LAB NUEVO =-=-=-
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posLabNuevo);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		//labN.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posLabNuevo);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		labN.Draw(lightingShader);
 
 		//model = glm::mat4(1);
 		//model = glm::translate(model, posLabNuevo);
@@ -1387,19 +1435,23 @@ int main()
 		glBindVertexArray(0);
 
 		//Draw skybox
-
 		glDepthFunc(GL_LEQUAL);
 		skyboxshader.Use();
+
 		view = glm::mat4(glm::mat3(camera.GetViewMatrix()));
 		glUniformMatrix4fv(glGetUniformLocation(skyboxshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(skyboxshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
+		// Asegúrate que este uniforme coincida con la unidad que activas
+		glUniform1i(glGetUniformLocation(skyboxshader.Program, "skybox"), 0);
+
 		glBindVertexArray(skyboxVAO);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glActiveTexture(GL_TEXTURE0);  // Asegúrate de que es 0, no 1
+		glBindTexture(GL_TEXTURE_CUBE_MAP, modoNoche ? cubemapNoche : cubemapDia);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 		glDepthFunc(GL_LESS);
+
 
 		// Also draw the lamp object, again binding the appropriate shader
 		lampShader.Use();
@@ -1702,6 +1754,10 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			delayGabinetesViejos[i] = 0;
 		}
 		animarGabinetesViejos[0] = true;          // Activa el primero inmediatamente
+	}
+
+	if (key == GLFW_KEY_N && action == GLFW_PRESS) {
+		modoNoche = !modoNoche;
 	}
 
 }
