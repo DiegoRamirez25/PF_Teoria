@@ -1,17 +1,17 @@
 # Blender 4.4.0 MTL File: 'None'
 # www.blender.org
 
-newmtl standardSurface1.002
-Ks 0.374096 0.374096 0.374096
+newmtl Material.012
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
-illum 3
-Pr 0.278858
-Pm 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
 Ps 0.000000
 Pc 0.000000
 Pcr 0.030000
 aniso 0.000000
 anisor 0.000000
-map_Kd negro.jpg
+map_Kd griso.jpg
