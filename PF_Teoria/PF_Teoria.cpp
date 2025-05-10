@@ -373,6 +373,28 @@ bool moveBackward = false;
 // Variables de control para rotaciones
 float targetRotation = 0.0f;  // Rotación objetivo
 
+//================ ANIMACION ARAÑA ======================
+int AranaAnim = 0;
+float cabezaR = 0.0f;
+float pata1R = 0.0f;
+float pata2R = 0.0f;
+float pata3R = 0.0f;
+float pata4R = 0.0f;
+float pata5R = 0.0f;
+float pata6R = 0.0f;
+float pata7R = 0.0f;
+glm::vec3 AranaPos(0.0f, 0.0f, 0.0f);
+float AranaRot = 0.0f;
+bool Aranastep = false;
+
+// Máquina de estados de la araña
+bool aranaAdelante = false;
+bool aranaGiraDer = false;
+bool aranaGiraIzq = false;
+bool aranaGira180 = false;
+
+float AranaTargetRot = 0.0f;
+
 bool modoNoche = false;
 GLuint cubemapDia, cubemapNoche;
 
@@ -488,8 +510,8 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 
-	Model lab((char*)"Models/LAB.obj");
-	/*Model medicion((char*)"Models/MEDICION.obj");
+	/*Model lab((char*)"Models/LAB.obj");
+	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
 	Model medicion3((char*)"Models/MEDICION3.obj");
 	Model medicion4((char*)"Models/MEDICION4.obj");
@@ -529,10 +551,20 @@ int main()
 	&gabinete9, &gabinete10, &gabinete11, &gabinete12
 	};*/
 
+	Model cuerpo((char*)"Models/cuerpo.obj");
+	Model cabeza((char*)"Models/cabeza.obj");
+	Model pata1((char*)"Models/arana/pata1.obj");
+	Model pata2((char*)"Models/arana/pata2.obj");
+	Model pata3((char*)"Models/arana/pata3.obj");
+	Model pata4((char*)"Models/arana/pata4.obj");
+	Model pata5((char*)"Models/arana/pata5.obj");
+	Model pata6((char*)"Models/arana/pata6.obj");
+	Model pata7((char*)"Models/arana/pata7.obj");
+
 	// =-=-=- LAB NUEVO =-=-=-+
 
-	Model labN((char*)"Models/LABN.obj");
-	/*Model medicionLN((char*)"Models/MEDICION_LN.obj");
+	/*Model labN((char*)"Models/LABN.obj");
+	Model medicionLN((char*)"Models/MEDICION_LN.obj");
 	Model medicionLN2((char*)"Models/MEDICION_LN2.obj");
 	Model medicionLN3((char*)"Models/MEDICION_LN3.obj");
 	Model medicionLN4((char*)"Models/MEDICION_LN4.obj");
@@ -1035,11 +1067,11 @@ int main()
 		//Carga de modelo 
 		// =-=-=- LAB ACTUAL =-=-=-
 
-		model = glm::mat4(1);
+		/*model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		lab.Draw(lightingShader);
+		lab.Draw(lightingShader);*/
 
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
@@ -1222,11 +1254,11 @@ int main()
 
 		// =-=-=- LAB NUEVO =-=-=-
 
-		model = glm::mat4(1);
+		/*model = glm::mat4(1);
 		model = glm::translate(model, posLabNuevo);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		labN.Draw(lightingShader);
+		labN.Draw(lightingShader);*/
 
 		//model = glm::mat4(1);
 		//model = glm::translate(model, posLabNuevo);
@@ -1414,7 +1446,7 @@ int main()
 		////Body
 		//model = glm::mat4(1.0f);
 		//model = glm::translate(model, StuPos);
-		//model = glm::scale(model, glm::vec3(8.0f));  // REDUCIR la escala (antes estaba en 18.0f)
+		//model = glm::scale(model, glm::vec3(8.0f));  
 		//model = glm::rotate(model, glm::radians(StuRot), glm::vec3(0.0f, 1.0f, 0.0f));
 		//modelTemp = model;
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -1431,6 +1463,64 @@ int main()
 		//model = glm::rotate(model, glm::radians(FLegs), glm::vec3(0.0f, 0.0f, 1.0f));
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//F_RightLeg.Draw(lightingShader);
+
+		//Cuerpo
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, AranaPos);
+		model = glm::scale(model, glm::vec3(8.0f));  
+		model = glm::rotate(model, glm::radians(AranaRot), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelTemp = model;
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		cuerpo.Draw(lightingShader);
+
+		//cabeza
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(cabezaR), glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		cabeza.Draw(lightingShader);
+
+		//pata 1
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(-0.317343f, -0.019981f, -0.334217f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata1.Draw(lightingShader);
+
+		//pata 2
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(-0.354153f, -0.029496f, -0.506979f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata2.Draw(lightingShader);
+
+		//pata 3
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(-0.267455f, 0.026129f, -0.645586f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata3.Draw(lightingShader);
+
+		//pata 4
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.32149f, -0.029496f, -0.320834f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata4.Draw(lightingShader);
+
+		//pata 5
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.27101f, -0.029496f, -0.506979f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata5.Draw(lightingShader);
+
+		//pata 6
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.245932f, 0.017995f, -0.622514f));
+		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pata6.Draw(lightingShader);
 
 		glBindVertexArray(0);
 
@@ -1760,6 +1850,34 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		modoNoche = !modoNoche;
 	}
 
+	if (action == GLFW_PRESS) {
+		switch (key) {
+		case GLFW_KEY_Z:  // Avanza
+			aranaAdelante = !aranaAdelante;
+			aranaGiraDer = aranaGiraIzq = aranaGira180 = false;
+			break;
+
+		case GLFW_KEY_X:  // Gira derecha
+			aranaGiraDer = true;
+			aranaAdelante = aranaGiraIzq = aranaGira180 = false;
+			AranaTargetRot = fmod(AranaRot + 90.0f, 360.0f);
+			break;
+
+		case GLFW_KEY_C:  // Gira izquierda
+			aranaGiraIzq = true;
+			aranaAdelante = aranaGiraDer = aranaGira180 = false;
+			AranaTargetRot = fmod(AranaRot - 90.0f + 360.0f, 360.0f);
+			break;
+
+		case GLFW_KEY_V:  // Gira 180
+			aranaGira180 = true;
+			aranaAdelante = aranaGiraDer = aranaGiraIzq = false;
+			AranaTargetRot = fmod(AranaRot + 180.0f, 360.0f);
+			break;
+		}
+	}
+
+
 }
 
 
@@ -1873,6 +1991,42 @@ void Animation() {
 	// Normalizar StuRot
 	if (StuRot >= 360.0f) StuRot -= 360.0f;
 	if (StuRot < 0.0f) StuRot += 360.0f;
+
+	// Movimiento cabeza: va de -10° a 10° en forma de onda
+	cabezaR = sin(glfwGetTime() * 2.5f) * 10.0f;
+
+	if (aranaAdelante) {
+		// Movimiento tipo paso
+		if (!Aranastep) {
+			pata1R += 0.4f;
+			if (pata1R >= 15.0f)
+				Aranastep = true;
+		}
+		else {
+			pata1R -= 0.4f;
+			if (pata1R <= -15.0f)
+				Aranastep = false;
+		}
+
+		// Movimiento hacia adelante
+		float radians = glm::radians(AranaRot);
+		AranaPos.x += cos(radians) * 0.05f;
+		AranaPos.z -= sin(radians) * 0.05f;
+	}
+
+	if (aranaGiraDer || aranaGiraIzq || aranaGira180) {
+		float diff = fmod((AranaTargetRot - AranaRot + 540.0f), 360.0f) - 180.0f;
+		if (abs(diff) > 1.0f) {
+			AranaRot += (diff > 0 ? 1.5f : -1.5f);
+			pata1R = sin(glfwGetTime() * 5.0f) * 10.0f;
+		}
+		else {
+			AranaRot = AranaTargetRot;
+			aranaGiraDer = aranaGiraIzq = aranaGira180 = false;
+			pata1R = 0.0f;
+		}
+	}
+
 }
 
 
