@@ -393,6 +393,14 @@ bool aranaGiraDer = false;
 bool aranaGiraIzq = false;
 bool aranaGira180 = false;
 
+// ========== SALTO ARAÑA ==========
+bool aranaSaltando = false;
+float aranaVelocidadY = 0.0f;
+float aranaAlturaBase = 1.59586f;  // Altura base original de AranaPos.y
+float aranaGravedad = -0.01f;
+bool aranaFlexionando = true;
+float pataSaltoR = 0.0f;
+
 float AranaTargetRot = 0.0f;
 
 bool modoNoche = false;
@@ -1068,11 +1076,11 @@ int main()
 		//Carga de modelo 
 		// =-=-=- LAB ACTUAL =-=-=-
 
-		model = glm::mat4(1);
+		/*model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		lab.Draw(lightingShader);
+		lab.Draw(lightingShader);*/
 
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
@@ -1888,7 +1896,16 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			aranaAdelante = aranaGiraDer = aranaGiraIzq = false;
 			AranaTargetRot = fmod(AranaRot + 180.0f, 360.0f);
 			break;
+
+		case GLFW_KEY_H:
+			if (!aranaSaltando) {
+				aranaSaltando = true;
+				aranaVelocidadY = 0.15f;  // Velocidad inicial del salto
+			}
+			break;
+
 		}
+
 	}
 
 
@@ -2069,6 +2086,33 @@ void Animation() {
 		}
 	}
 
+	// ========== SALTO DE LA ARAÑA CON ROTACIÓN REALISTA DE PATAS ==========
+
+	if (aranaSaltando) {
+		AranaPos.y += aranaVelocidadY;
+		aranaVelocidadY += aranaGravedad;
+
+		// Fase de impulso (subida): las patas se recogen hacia arriba
+		if (aranaVelocidadY > 0) {
+			float angulo = sin(glfwGetTime() * 5.0f) * 25.0f;
+			pata1R = pata3R = pata5R = -angulo;
+			pata2R = pata4R = pata6R = -angulo;
+		}
+		// Fase de caída: las patas se abren un poco hacia afuera como equilibrio
+		else {
+			float angulo = sin(glfwGetTime() * 4.0f) * 15.0f;
+			pata1R = pata3R = pata5R = angulo;
+			pata2R = pata4R = pata6R = angulo;
+		}
+
+		// Termina el salto
+		if (AranaPos.y <= aranaAlturaBase) {
+			AranaPos.y = aranaAlturaBase;
+			aranaSaltando = false;
+			aranaVelocidadY = 0.0f;
+			pata1R = pata2R = pata3R = pata4R = pata5R = pata6R = 0.0f;
+		}
+	}
 
 
 }
