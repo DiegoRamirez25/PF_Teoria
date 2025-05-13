@@ -552,7 +552,7 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 	
-	Model lab((char*)"Models/prueba.obj");
+	//Model lab((char*)"Models/prueba.obj");
 	/*	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
@@ -1121,11 +1121,11 @@ int main()
 		//Carga de modelo 
 		// =-=-=- LAB ACTUAL =-=-=-
 
-		model = glm::mat4(1);
+		/*model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		lab.Draw(lightingShader);
+		lab.Draw(lightingShader);*/
 		
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
@@ -1611,7 +1611,7 @@ int main()
 
 		// Ala 1
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-0.089689f, alturaMosca, 18.2424f)); // posición global
+		model = glm::translate(model, glm::vec3(0.02417f, alturaMosca, 18.2145f)); // posición global
 		model = glm::rotate(model, glm::radians(alaMoscaR), glm::vec3(1.0f, 0.0f, 0.0f)); // rotación alrededor del eje X (ajustar si es Z u otro)
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		ala1.Draw(lightingShader);
@@ -2251,21 +2251,24 @@ void Animation() {
 
 	switch (estadoMosca) {
 	case DESPEGANDO:
-		torsoR += deltaTime * 20.0f;  // Inclinación del torso hacia adelante
-		alaMoscaR += sin(glfwGetTime() * 50.0f) * 20.0f;  // Batido de las alas
+		// Movimiento suave del torso hacia adelante
+		torsoR += deltaTime * 15.0f;  // Reduce la velocidad para que no sea tan rápido
 
-		// Animación de las patas en el despegue
-		pataMosca1R = sin(glfwGetTime() * 4.0f) * 15.0f;
-		pataMosca2R = sin(glfwGetTime() * 4.5f) * 15.0f;
-		pataMosca3R = sin(glfwGetTime() * 5.0f) * 15.0f;
-		pataMosca4R = sin(glfwGetTime() * 3.0f) * 15.0f;
-		pataMosca5R = sin(glfwGetTime() * 3.5f) * 15.0f;
-		pataMosca6R = sin(glfwGetTime() * 2.5f) * 15.0f;
+		// Batido de las alas, con una frecuencia más baja para que sea menos frenético
+		alaMoscaR = sin(glfwGetTime() * 20.0f) * 25.0f;  // Batido más realista
 
-		// Elevar la mosca mientras despegas
-		alturaMosca += deltaTime * 1.0f;
+		// Animación de las patas en el despegue, usando desfases para evitar sincronización perfecta
+		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 15.0f;
+		pataMosca2R = sin(glfwGetTime() * 4.5f + 0.5f) * 15.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f + 1.0f) * 15.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f + 1.5f) * 15.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f + 2.0f) * 15.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f + 2.5f) * 15.0f;
 
-		// Asegurarse de que la altura no baje de 6.621f
+		// Elevar la mosca mientras despegas, con una pequeña oscilación para hacer el movimiento más natural
+		alturaMosca += deltaTime * 1.0f + sin(glfwGetTime() * 2.0f) * 0.05f; // Oscilación suave en la altura
+
+		// Asegurarse de que la altura no baje de 6.621f ni suba demasiado rápido
 		if (alturaMosca < 6.621f) {
 			alturaMosca = 6.621f;
 		}
@@ -2273,29 +2276,32 @@ void Animation() {
 			alturaMosca = 14.8594f;
 		}
 
-		// Cambiar al estado de volando si la mosca ha despegado
-		if (torsoR > 15.0f) {
+		// Cambiar al estado de volando si la mosca ha alcanzado la inclinación deseada
+		if (torsoR > 12.0f) {  // Ajustado para ser un poco más suave
 			estadoMosca = VOLANDO;
 			tiempoEstado = 0.0f;  // Resetear el tiempo cuando cambia el estado
 		}
 		break;
-
+	
 	case VOLANDO:
-		torsoR = sin(glfwGetTime() * 2.0f) * 2.0f;  // Movimiento del torso (oscilación)
-		alaMoscaR = sin(glfwGetTime() * 50.0f) * 30.0f;  // Batido rápido de las alas
+		// Movimiento del torso (oscilación controlada)
+		torsoR = sin(glfwGetTime() * 1.5f) * 5.0f;  // Limitar el rango de movimiento del torso
 
-		// Animación de las patas al volar
-		pataMosca1R = sin(glfwGetTime() * 4.0f) * 15.0f;
-		pataMosca2R = sin(glfwGetTime() * 4.5f) * 15.0f;
-		pataMosca3R = sin(glfwGetTime() * 5.0f) * 15.0f;
-		pataMosca4R = sin(glfwGetTime() * 3.0f) * 15.0f;
-		pataMosca5R = sin(glfwGetTime() * 3.5f) * 15.0f;
-		pataMosca6R = sin(glfwGetTime() * 2.5f) * 15.0f;
+		// Batido de las alas (frecuencia reducida para un batido más realista)
+		alaMoscaR = sin(glfwGetTime() * 20.0f) * 30.0f;  // Batido de alas
+
+		// Animación de las patas al volar (variar ligeramente el desfase entre las patas)
+		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 15.0f;
+		pataMosca2R = sin(glfwGetTime() * 4.5f + 0.5f) * 15.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f + 1.0f) * 15.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f + 1.5f) * 15.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f + 2.0f) * 15.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f + 2.5f) * 15.0f;
 
 		// Oscilación suave en la altura
-		alturaMosca += sin(glfwGetTime() * 0.5f) * 0.05f;
+		alturaMosca += sin(glfwGetTime() * 0.5f) * 0.05f;  // Movimiento suave de la altura
 
-		// Asegurarse de que la altura no baje de 6.621f
+		// Asegurarse de que la altura no baje de 6.621f ni suba demasiado
 		if (alturaMosca < 6.621f) {
 			alturaMosca = 6.621f;
 		}
@@ -2304,45 +2310,52 @@ void Animation() {
 		}
 
 		// Cambiar al estado de aterrizaje después de cierto tiempo
-		if (tiempoEstado > 5.0f) {
+		if (tiempoEstado > 6.0f) {
 			estadoMosca = ATERRIZANDO;
-			tiempoEstado = 0.0f;  // Resetear tiempoEstado
+			tiempoEstado = 0.0f;
 		}
 		break;
 
 	case ATERRIZANDO:
-		torsoR -= deltaTime * 20.0f;  // Reducir la inclinación del torso hacia atrás
-		alaMoscaR = sin(glfwGetTime() * 30.0f) * 10.0f;  // Batido suave de las alas al aterrizar
+		// Reducir la inclinación del torso de forma más suave
+		torsoR -= deltaTime * 10.0f;  // Reducir la velocidad para que el torso no se incline demasiado rápido
 
-		// Animación de las patas al aterrizar
-		pataMosca1R = sin(glfwGetTime() * 4.0f) * 10.0f;
-		pataMosca2R = sin(glfwGetTime() * 4.5f) * 10.0f;
-		pataMosca3R = sin(glfwGetTime() * 5.0f) * 10.0f;
-		pataMosca4R = sin(glfwGetTime() * 3.0f) * 10.0f;
-		pataMosca5R = sin(glfwGetTime() * 3.5f) * 10.0f;
-		pataMosca6R = sin(glfwGetTime() * 2.5f) * 10.0f;
+		// Batido suave de las alas al aterrizar (frecuencia más baja para un movimiento más suave)
+		alaMoscaR = sin(glfwGetTime() * 15.0f) * 10.0f;  // Reducir la frecuencia para batido suave de alas
 
-		// Reducir la altura mientras aterriza
-		alturaMosca -= deltaTime * 0.5f;
+		// Animación de las patas al aterrizar, con menor amplitud
+		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 5.0f;  // Menor amplitud
+		pataMosca2R = sin(glfwGetTime() * 4.5f + 0.5f) * 5.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f + 1.0f) * 5.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f + 1.5f) * 5.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f + 2.0f) * 5.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f + 2.5f) * 5.0f;
+
+		// Reducir la altura mientras aterriza (hacerlo de forma más suave)
+		alturaMosca -= deltaTime * 0.25f;  // Reducir la velocidad del descenso para suavizar el aterrizaje
 
 		// Asegurarse de que la altura no baje de 6.621f
 		if (alturaMosca < 6.621f) {
-			alturaMosca = 6.621f;
+			alturaMosca = 6.621f;  // Limitar la altura mínima
 			estadoMosca = DETENIDO;  // Detener la animación
-			tiempoEstado = 0.0f;  // Resetear el tiempo al detener la animación
+			// No resetear tiempoEstado aquí, permite que la animación continúe suavemente
 		}
 		break;
 
 	case DETENIDO:
-		// La mosca se queda en su altura mínima (6.621f) y no hace más movimientos
-		alaMoscaR = 0.0f;  // Detener el batido de alas
-		torsoR = 0.0f;     // Detener movimiento del torso
-		pataMosca1R = 0.0f;  // Detener movimiento de las patas
-		pataMosca2R = 0.0f;
-		pataMosca3R = 0.0f;
-		pataMosca4R = 0.0f;
-		pataMosca5R = 0.0f;
-		pataMosca6R = 0.0f;
+		// Mantener el batido suave de las alas (con pequeña oscilación)
+		alaMoscaR = sin(glfwGetTime() * 5.0f) * 5.0f;  // Batido suave y lento
+
+		// Detener el movimiento del torso
+		torsoR = 0.0f;  // Torso completamente detenido
+
+		// Las patas están detenidas, pero podemos agregar un pequeño movimiento residual
+		pataMosca1R = sin(glfwGetTime() * 1.0f) * 2.0f;  // Movimiento sutil
+		pataMosca2R = sin(glfwGetTime() * 1.5f) * 2.0f;
+		pataMosca3R = sin(glfwGetTime() * 2.0f) * 2.0f;
+		pataMosca4R = sin(glfwGetTime() * 1.5f) * 2.0f;
+		pataMosca5R = sin(glfwGetTime() * 1.0f) * 2.0f;
+		pataMosca6R = sin(glfwGetTime() * 1.0f) * 2.0f;
 
 		// Esperar 2 segundos en el estado DETENIDO y luego reiniciar la animación
 		if (tiempoEstado > 2.0f) {
@@ -2350,6 +2363,7 @@ void Animation() {
 			tiempoEstado = 0.0f;  // Resetear el tiempo
 		}
 		break;
+
 	}
 }
 
