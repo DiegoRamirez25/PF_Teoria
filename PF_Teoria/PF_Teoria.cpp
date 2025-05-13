@@ -552,7 +552,7 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 	
-	Model lab((char*)"Models/prueba.obj");
+	Model lab((char*)"Models/LAB.obj");
 	/*	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
@@ -2026,13 +2026,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			}
 			break;
 
-		case GLFW_KEY_F:
-			MoscaAnim = true;
-			break;
-
 		}
-
-
 	}
 
 
@@ -2040,8 +2034,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
 
 void Animation() {
-	std::cout << "alaMoscaR: " << alaMoscaR << std::endl;
-	std::cout << "Estado actual: EN_REPOSO - tiempoEstado: " << tiempoEstado << std::endl;
 
 	float speed = 0.08f;
 	float rotSpeed = 2.0f;
@@ -2244,7 +2236,7 @@ void Animation() {
 		}
 	}
 
-	// ===================== FLUJO DE ANIMACIÓN ======================
+	// ===================== ANIMACION MOSCA ======================
 
 	float deltaTime = obtenerDeltaTiempo();  // Función para obtener el tiempo entre frames
 	tiempoEstado += deltaTime;
