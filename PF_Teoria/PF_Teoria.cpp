@@ -403,6 +403,44 @@ float pataSaltoR = 0.0f;
 
 float AranaTargetRot = 0.0f;
 
+// =================== ANIMACIÓN MOSCA ======================
+
+bool MoscaAnim = 0;
+float torsoR = 0.0f;
+float alaMoscaR = 0.0f;
+float pataMosca1R = 0.0f;
+float pataMosca2R = 0.0f;
+float pataMosca3R = 0.0f;
+float pataMosca4R = 0.0f;
+float pataMosca5R = 0.0f;
+float pataMosca6R = 0.0f;
+float alturaMosca = 6.621f; // Altura inicial
+
+enum EstadoMosca {
+	EN_REPOSO,
+	DESPEGANDO,
+	VOLANDO,
+	ATERRIZANDO,
+	DETENIDO
+};
+
+EstadoMosca estadoMosca = DESPEGANDO;  // Cambiar el estado inicial a DESPEGANDO
+float tiempoEstado = 0.0f;
+
+// Deltatime
+GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+
+float obtenerDeltaTiempo() {
+	float tiempoActual = glfwGetTime();  // obtiene tiempo en segundos desde que GLFW se inició
+	deltaTime = tiempoActual - lastFrame;
+	lastFrame = tiempoActual;
+	return deltaTime;
+}
+
+
+
 bool modoNoche = false;
 GLuint cubemapDia, cubemapNoche;
 
@@ -450,10 +488,6 @@ float vertices[] = {
 	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 };
 
-
-// Deltatime
-GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
-GLfloat lastFrame = 0.0f;  	// Time of last frame
 
 
 glm::vec3 promedioPosiciones(const glm::vec3* posiciones, int offset) {
@@ -517,8 +551,9 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
-
-	Model lab((char*)"Models/LAB.obj");
+	
+	Model lab((char*)"Models/prueba.obj");
+	/*	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
 	Model medicion3((char*)"Models/MEDICION3.obj");
@@ -568,11 +603,20 @@ int main()
 	Model pata4((char*)"Models/pata4.obj");
 	Model pata5((char*)"Models/pata5.obj");
 	Model pata6((char*)"Models/pata6.obj");
-	Model pata7((char*)"Models/pata7.obj");
+	Model pata7((char*)"Models/pata7.obj");*/
 
+	Model torso((char*)"Models/torso.obj");
+	Model ala1((char*)"Models/ala1.obj");
+	Model ala2((char*)"Models/ala2.obj");
+	Model pataM((char*)"Models/pataMosca1.obj");
+	Model pataM2((char*)"Models/pataMosca2.obj");
+	Model pataM3((char*)"Models/pataMosca3.obj");
+	Model pataM4((char*)"Models/pataMosca4.obj");
+	Model pataM5((char*)"Models/pataMosca5.obj");
+	Model pataM6((char*)"Models/pataMosca6.obj");
 	// =-=-=- LAB NUEVO =-=-=-+
 
-	Model labN((char*)"Models/LABN.obj");
+	/*Model labN((char*)"Models/LABN.obj");
 	Model medicionLN((char*)"Models/MEDICION_LN.obj");
 	Model medicionLN2((char*)"Models/MEDICION_LN2.obj");
 	Model medicionLN3((char*)"Models/MEDICION_LN3.obj");
@@ -611,7 +655,7 @@ int main()
 		&gabinetesLN1, &gabinetesLN2, &gabinetesLN3, &gabinetesLN4,
 		&gabinetesLN5, &gabinetesLN6, &gabinetesLN7, &gabinetesLN8,
 		&gabinetesLN9, &gabinetesLN10, &gabinetesLN11, &gabinetesLN12
-	};
+	};*/
 
 	GLfloat skyboxVertices[] = {
 		// Positions
@@ -674,6 +718,7 @@ int main()
 
 	prepararKeyframesRemolino();
 	prepararKeyframesGabinetes();
+
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -814,7 +859,6 @@ int main()
 				delayCaida3 = 0;
 			}
 		}
-
 
 		// Clear the colorbuffer
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -1082,465 +1126,544 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		lab.Draw(lightingShader);
+		
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mesas.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mesas.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cables.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cables.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cables2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cables2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cables3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cables3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//monitores.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		monitores.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouse.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouse.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouse2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouse2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouse3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouse3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//teclado.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		teclado.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//teclado2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		teclado2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//teclado3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		teclado3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//gabinete.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		gabinete.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//gabinete2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		gabinete2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//gabinete3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		gabinete3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicion.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicion.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicion2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicion2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicion3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicion3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicion4.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicion4.Draw(lightingShader);
+		//// === SILLAS VIEJAS 1 ===
+		//if (animarSillasViejas1 && frameSillasViejas1 < keyframesRemolino.size()) {
+		//	FrameRemolino kf = keyframesRemolino[frameSillasViejas1];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas.Draw(lightingShader);
+		//}
+		//else if (!animarSillasViejas1) {
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas.Draw(lightingShader);
+		//}
 
-		// === SILLAS VIEJAS 1 ===
-		if (animarSillasViejas1 && frameSillasViejas1 < keyframesRemolino.size()) {
-			FrameRemolino kf = keyframesRemolino[frameSillasViejas1];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas.Draw(lightingShader);
-		}
-		else if (!animarSillasViejas1) {
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas.Draw(lightingShader);
-		}
+		//// === SILLAS VIEJAS 2 ===
+		//if (animarSillasViejas2 && frameSillasViejas2 < keyframesRemolino.size()) {
+		//	FrameRemolino kf = keyframesRemolino[frameSillasViejas2];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas2.Draw(lightingShader);
+		//}
+		//else if (!animarSillasViejas2) {
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas2.Draw(lightingShader);
+		//}
 
-		// === SILLAS VIEJAS 2 ===
-		if (animarSillasViejas2 && frameSillasViejas2 < keyframesRemolino.size()) {
-			FrameRemolino kf = keyframesRemolino[frameSillasViejas2];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas2.Draw(lightingShader);
-		}
-		else if (!animarSillasViejas2) {
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas2.Draw(lightingShader);
-		}
+		//// === SILLAS VIEJAS 3 ===
+		//if (animarSillasViejas3 && frameSillasViejas3 < keyframesRemolino.size()) {
+		//	FrameRemolino kf = keyframesRemolino[frameSillasViejas3];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas3.Draw(lightingShader);
+		//}
+		//else if (!animarSillasViejas3) {
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillas3.Draw(lightingShader);
+		//}
 
-		// === SILLAS VIEJAS 3 ===
-		if (animarSillasViejas3 && frameSillasViejas3 < keyframesRemolino.size()) {
-			FrameRemolino kf = keyframesRemolino[frameSillasViejas3];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::rotate(model, kf.rotacionY, glm::vec3(0, 1, 0));
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas3.Draw(lightingShader);
-		}
-		else if (!animarSillasViejas3) {
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición base
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillas3.Draw(lightingShader);
-		}
-
-		for (int i = 0; i < 12; ++i) {
-			if (animarGabinetesViejos[i] && frameGabinetesViejos[i] < keyframesGabinetesViejos[i].size()) {
-				FrameCaida kf = keyframesGabinetesViejos[i][frameGabinetesViejos[i]];
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, kf.posicion);
-				model = glm::scale(model, glm::vec3(kf.escala));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				gabinetesViejos[i]->Draw(lightingShader);
-			}
-			else if ((animarGabinetesViejos[i] || frameGabinetesViejos[0] >= desfaseGabinetesViejos[i]) && !keyframesGabinetesViejos[i].empty()) {
-				FrameCaida kfFinal = keyframesGabinetesViejos[i].back();
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, kfFinal.posicion);
-				model = glm::scale(model, glm::vec3(kfFinal.escala));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				gabinetesViejos[i]->Draw(lightingShader);
-			}
-		}
-
+		//for (int i = 0; i < 12; ++i) {
+		//	if (animarGabinetesViejos[i] && frameGabinetesViejos[i] < keyframesGabinetesViejos[i].size()) {
+		//		FrameCaida kf = keyframesGabinetesViejos[i][frameGabinetesViejos[i]];
+		//		model = glm::mat4(1.0f);
+		//		model = glm::translate(model, kf.posicion);
+		//		model = glm::scale(model, glm::vec3(kf.escala));
+		//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//		gabinetesViejos[i]->Draw(lightingShader);
+		//	}
+		//	else if ((animarGabinetesViejos[i] || frameGabinetesViejos[0] >= desfaseGabinetesViejos[i]) && !keyframesGabinetesViejos[i].empty()) {
+		//		FrameCaida kfFinal = keyframesGabinetesViejos[i].back();
+		//		model = glm::mat4(1.0f);
+		//		model = glm::translate(model, kfFinal.posicion);
+		//		model = glm::scale(model, glm::vec3(kfFinal.escala));
+		//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//		gabinetesViejos[i]->Draw(lightingShader);
+		//	}
+		//}
 
 		 //=-=-=- LAB NUEVO =-=-=-
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		labN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//labN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicionLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicionLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicionLN2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicionLN2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicionLN3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicionLN3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		medicionLN4.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//medicionLN4.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mesasLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mesasLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		monitorLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//monitorLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		monitorLN2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//monitorLN2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		monitorLN3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//monitorLN3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		monitorLN4.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//monitorLN4.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		tecladoLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//tecladoLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		tecladoLN2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//tecladoLN2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		tecladoLN3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//tecladoLN3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouseLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouseLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouseLN2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouseLN2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		mouseLN3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//mouseLN3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cablesLN.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cablesLN.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cablesLN2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cablesLN2.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, posLabNuevo);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		cablesLN3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, posLabNuevo);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//cablesLN3.Draw(lightingShader);
 
-		//=== SILLAS NUEVAS 1 ===
-		if (animarSillasNuevas1 && frameSillasNuevas1 < keyframesCaidaSillasNuevas.size()) {
-			FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas1];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN.Draw(lightingShader);
-		}
-		else if (!keyframesCaidaSillasNuevas.empty()) {
-			FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kfFinal.posicion);
-			model = glm::scale(model, glm::vec3(kfFinal.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN.Draw(lightingShader);
-		}
+		////=== SILLAS NUEVAS 1 ===
+		//if (animarSillasNuevas1 && frameSillasNuevas1 < keyframesCaidaSillasNuevas.size()) {
+		//	FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas1];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN.Draw(lightingShader);
+		//}
+		//else if (!keyframesCaidaSillasNuevas.empty()) {
+		//	FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kfFinal.posicion);
+		//	model = glm::scale(model, glm::vec3(kfFinal.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN.Draw(lightingShader);
+		//}
 
-		// === SILLAS NUEVAS 2 ===
-		if (animarSillasNuevas2 && frameSillasNuevas2 < keyframesCaidaSillasNuevas.size()) {
-			FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas2];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN2.Draw(lightingShader);
-		}
-		else if (!keyframesCaidaSillasNuevas.empty()) {
-			FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kfFinal.posicion);
-			model = glm::scale(model, glm::vec3(kfFinal.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN2.Draw(lightingShader);
-		}
+		//// === SILLAS NUEVAS 2 ===
+		//if (animarSillasNuevas2 && frameSillasNuevas2 < keyframesCaidaSillasNuevas.size()) {
+		//	FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas2];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN2.Draw(lightingShader);
+		//}
+		//else if (!keyframesCaidaSillasNuevas.empty()) {
+		//	FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kfFinal.posicion);
+		//	model = glm::scale(model, glm::vec3(kfFinal.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN2.Draw(lightingShader);
+		//}
 
-		// === SILLAS NUEVAS 3 ===
-		if (animarSillasNuevas3 && frameSillasNuevas3 < keyframesCaidaSillasNuevas.size()) {
-			FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas3];
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kf.posicion);
-			model = glm::scale(model, glm::vec3(kf.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN3.Draw(lightingShader);
-		}
-		else if (!keyframesCaidaSillasNuevas.empty()) {
-			FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, kfFinal.posicion);
-			model = glm::scale(model, glm::vec3(kfFinal.escala));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			sillasLN3.Draw(lightingShader);
-		}
+		//// === SILLAS NUEVAS 3 ===
+		//if (animarSillasNuevas3 && frameSillasNuevas3 < keyframesCaidaSillasNuevas.size()) {
+		//	FrameCaida kf = keyframesCaidaSillasNuevas[frameSillasNuevas3];
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kf.posicion);
+		//	model = glm::scale(model, glm::vec3(kf.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN3.Draw(lightingShader);
+		//}
+		//else if (!keyframesCaidaSillasNuevas.empty()) {
+		//	FrameCaida kfFinal = keyframesCaidaSillasNuevas.back();
+		//	model = glm::mat4(1.0f);
+		//	model = glm::translate(model, kfFinal.posicion);
+		//	model = glm::scale(model, glm::vec3(kfFinal.escala));
+		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//	sillasLN3.Draw(lightingShader);
+		//}
 
-		// === GABINETES ===
+		//// === GABINETES ===
 
-		for (int i = 0; i < 12; ++i) {
-			if (animarGabinetes[i] && frameGabinetes[i] < keyframesGabinetes[i].size()) {
-				FrameCaida kf = keyframesGabinetes[i][frameGabinetes[i]];
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, kf.posicion);
-				model = glm::scale(model, glm::vec3(kf.escala));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				gabinetesLN[i]->Draw(lightingShader);
-			}
-			else if ((animarGabinetes[i] || frameGabinetes[0] >= desfaseGabinetes[i]) && !keyframesGabinetes[i].empty()) {
-				FrameCaida kfFinal = keyframesGabinetes[i].back();
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, kfFinal.posicion);
-				model = glm::scale(model, glm::vec3(kfFinal.escala));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				gabinetesLN[i]->Draw(lightingShader);
-			}
-		}
+		//for (int i = 0; i < 12; ++i) {
+		//	if (animarGabinetes[i] && frameGabinetes[i] < keyframesGabinetes[i].size()) {
+		//		FrameCaida kf = keyframesGabinetes[i][frameGabinetes[i]];
+		//		model = glm::mat4(1.0f);
+		//		model = glm::translate(model, kf.posicion);
+		//		model = glm::scale(model, glm::vec3(kf.escala));
+		//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//		gabinetesLN[i]->Draw(lightingShader);
+		//	}
+		//	else if ((animarGabinetes[i] || frameGabinetes[0] >= desfaseGabinetes[i]) && !keyframesGabinetes[i].empty()) {
+		//		FrameCaida kfFinal = keyframesGabinetes[i].back();
+		//		model = glm::mat4(1.0f);
+		//		model = glm::translate(model, kfFinal.posicion);
+		//		model = glm::scale(model, glm::vec3(kfFinal.escala));
+		//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//		gabinetesLN[i]->Draw(lightingShader);
+		//	}
+		//}
 
-		//Body
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, StuPos);
-		model = glm::scale(model, glm::vec3(8.0f));  
-		model = glm::rotate(model, glm::radians(StuRot), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelTemp = model;
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		StuBody.Draw(lightingShader);
+		////Body
+		//model = glm::mat4(1.0f);
+		//model = glm::translate(model, StuPos);
+		//model = glm::scale(model, glm::vec3(8.0f));  
+		//model = glm::rotate(model, glm::radians(StuRot), glm::vec3(0.0f, 1.0f, 0.0f));
+		//modelTemp = model;
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//StuBody.Draw(lightingShader);
 
-		// Front Left Leg
-		model = modelTemp;
-		model = glm::rotate(model, glm::radians(FLegs), glm::vec3(0.0f, 0.0f, -1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		F_LeftLeg.Draw(lightingShader);
+		//// Front Left Leg
+		//model = modelTemp;
+		//model = glm::rotate(model, glm::radians(FLegs), glm::vec3(0.0f, 0.0f, -1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//F_LeftLeg.Draw(lightingShader);
 
-		// Front Right Leg
-		model = modelTemp;
-		model = glm::rotate(model, glm::radians(FLegs), glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		F_RightLeg.Draw(lightingShader);
+		//// Front Right Leg
+		//model = modelTemp;
+		//model = glm::rotate(model, glm::radians(FLegs), glm::vec3(0.0f, 0.0f, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//F_RightLeg.Draw(lightingShader);
 
 
-		// Cuerpo
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, AranaPos);
-		model = glm::scale(model, glm::vec3(1.0f));  // Más pequeña
-		model = glm::rotate(model, glm::radians(AranaRot), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelTemp = model;
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		cuerpo.Draw(lightingShader);
+		//// Cuerpo
+		//model = glm::mat4(1.0f);
+		//model = glm::translate(model, AranaPos);
+		//model = glm::scale(model, glm::vec3(1.0f));  // Más pequeña
+		//model = glm::rotate(model, glm::radians(AranaRot), glm::vec3(0.0f, 1.0f, 0.0f));
+		//modelTemp = model;
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//cuerpo.Draw(lightingShader);
 
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, AranaPos);
-		model = glm::scale(model, glm::vec3(1.0f));  // Más pequeña
-		model = glm::rotate(model, glm::radians(AranaRot), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelTemp = model;
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		cuerpo2.Draw(lightingShader);
+		//model = glm::mat4(1.0f);
+		//model = glm::translate(model, AranaPos);
+		//model = glm::scale(model, glm::vec3(1.0f));  // Más pequeña
+		//model = glm::rotate(model, glm::radians(AranaRot), glm::vec3(0.0f, 1.0f, 0.0f));
+		//modelTemp = model;
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//cuerpo2.Draw(lightingShader);
 
-		// Cabeza
-		model = modelTemp;
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(cabezaR), glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		cabeza.Draw(lightingShader);
+		//// Cabeza
+		//model = modelTemp;
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(cabezaR), glm::vec3(0.0f, 0.0f, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//cabeza.Draw(lightingShader);
 
-		// Pata 1
-		model = modelTemp;
-		model = glm::translate(model, glm::vec3(-0.317343f, -0.019981f, -0.334217f));
-		model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata1.Draw(lightingShader);
+		//// Pata 1
+		//model = modelTemp;
+		//model = glm::translate(model, glm::vec3(-0.317343f, -0.019981f, -0.334217f));
+		//model = glm::rotate(model, glm::radians(pata1R), glm::vec3(0.0f, 0.0f, -1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pata1.Draw(lightingShader);
 
-		// Pata 2
-		model = modelTemp;
-		model = glm::translate(model, glm::vec3(-0.354153f, -0.029496f, -0.506979f));
-		model = glm::rotate(model, glm::radians(pata2R), glm::vec3(0.0f, 0.0f, -1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata2.Draw(lightingShader);
+		//// Pata 2
+		//model = modelTemp;
+		//model = glm::translate(model, glm::vec3(-0.354153f, -0.029496f, -0.506979f));
+		//model = glm::rotate(model, glm::radians(pata2R), glm::vec3(0.0f, 0.0f, -1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pata2.Draw(lightingShader);
 
-		// Pata 3
-		model = modelTemp;
-		model = glm::translate(model, glm::vec3(-0.267455f, 0.026129f, -0.645586f));
-		model = glm::rotate(model, glm::radians(pata3R), glm::vec3(0.0f, 0.0f, -1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata3.Draw(lightingShader);
+		//// Pata 3
+		//model = modelTemp;
+		//model = glm::translate(model, glm::vec3(-0.267455f, 0.026129f, -0.645586f));
+		//model = glm::rotate(model, glm::radians(pata3R), glm::vec3(0.0f, 0.0f, -1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pata3.Draw(lightingShader);
 
-		// Pata 4
-		model = modelTemp;
-		model = glm::translate(model, glm::vec3(0.32149f, -0.029496f, -0.320834f));
-		model = glm::rotate(model, glm::radians(pata4R), glm::vec3(0.0f, 0.0f, -1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata4.Draw(lightingShader);
+		//// Pata 4
+		//model = modelTemp;
+		//model = glm::translate(model, glm::vec3(0.32149f, -0.029496f, -0.320834f));
+		//model = glm::rotate(model, glm::radians(pata4R), glm::vec3(0.0f, 0.0f, -1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pata4.Draw(lightingShader);
 
-		// Pata 5
-		model = modelTemp;
+		//// Pata 5
+		/*model = modelTemp;
 		model = glm::translate(model, glm::vec3(0.27101f, -0.029496f, -0.506979f));
 		model = glm::rotate(model, glm::radians(pata5R), glm::vec3(0.0f, 0.0f, -1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata5.Draw(lightingShader);
+		pata5.Draw(lightingShader);*/
 
-		// Pata 6
-		model = modelTemp;
+		//// Pata 6
+		/*model = modelTemp;
 		model = glm::translate(model, glm::vec3(0.245932f, 0.017995f, -0.622514f));
 		model = glm::rotate(model, glm::radians(pata6R), glm::vec3(0.0f, 0.0f, -1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pata6.Draw(lightingShader);
+		pata6.Draw(lightingShader);*/
 
+		// Establecer altura mínima para evitar que la mosca atraviese la mesa
+		if (alturaMosca < 6.621f) {
+			alturaMosca = 6.621f; // Evitar que la mosca baje por debajo de la mesa
+		}
+
+		// Establecer altura máxima si quieres limitar cuánto puede subir
+		if (alturaMosca > 14.8594f) {
+			alturaMosca = 14.8594f; // Altura máxima que puede alcanzar la mosca
+		}
+
+		// Ajustar las patas para que sigan el movimiento de la mosca
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.023786f, alturaMosca - 0.03f, 18.1816f)); // Ajuste de altura
+		model = glm::rotate(model, glm::radians(pataMosca1R), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotación de la pata 1
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM.Draw(lightingShader);
+
+		// Torso de la mosca
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.05608f, alturaMosca, 18.2091f));
+		model = glm::rotate(model, glm::radians(torsoR), glm::vec3(0.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		torso.Draw(lightingShader);
+
+		// Ala 1
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-0.089689f, alturaMosca, 18.2424f)); // posición global
+		model = glm::rotate(model, glm::radians(alaMoscaR), glm::vec3(1.0f, 0.0f, 0.0f)); // rotación alrededor del eje X (ajustar si es Z u otro)
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		ala1.Draw(lightingShader);
+
+		// Ala derecha (ala2)
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.059036f, alturaMosca, 18.2458f)); // posición global de la segunda ala
+		model = glm::rotate(model, glm::radians(alaMoscaR), glm::vec3(1.0f, 0.0f, 0.0f)); // rota un poco diferente si lo deseas
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		ala2.Draw(lightingShader);
+
+		// Pata 1
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.023786f, alturaMosca - 0.03f, 18.1816f)); // Ajuste de altura
+		model = glm::rotate(model, glm::radians(pataMosca1R), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotación alrededor del eje X
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM.Draw(lightingShader);
+
+		// Pata 2
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.002416f, alturaMosca - 0.03f, 18.198f)); // Ajuste de altura de la pata 2
+		model = glm::rotate(model, glm::radians(pataMosca2R), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotación alrededor del eje X
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM2.Draw(lightingShader);
+
+		// Pata 3
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(-0.010993f, alturaMosca - 0.03f, 18.2282f)); // Ajuste de altura de la pata 3
+		model = glm::rotate(model, glm::radians(pataMosca3R), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación alrededor del eje Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM3.Draw(lightingShader);
+
+		// Pata 4
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.08501f, alturaMosca - 0.03f, 18.2328f)); // Ajuste de altura de la pata 4
+		model = glm::rotate(model, glm::radians(pataMosca4R), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación alrededor del eje Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM4.Draw(lightingShader);
+
+		// Pata 5
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.069206f, alturaMosca - 0.03f, 18.2684f)); // Ajuste de altura de la pata 5
+		model = glm::rotate(model, glm::radians(pataMosca5R), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación alrededor del eje Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM5.Draw(lightingShader);
+
+		// Pata 6
+		model = modelTemp;
+		model = glm::translate(model, glm::vec3(0.049586f, alturaMosca - 0.03f, 18.2773f)); // Ajuste de altura de la pata 6
+		model = glm::rotate(model, glm::radians(pataMosca6R), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación alrededor del eje Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pataM6.Draw(lightingShader);
 
 
 		glBindVertexArray(0);
@@ -1903,7 +2026,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			}
 			break;
 
+		case GLFW_KEY_F:
+			MoscaAnim = true;
+			break;
+
 		}
+
 
 	}
 
@@ -1912,6 +2040,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
 
 void Animation() {
+	std::cout << "alaMoscaR: " << alaMoscaR << std::endl;
+	std::cout << "Estado actual: EN_REPOSO - tiempoEstado: " << tiempoEstado << std::endl;
+
 	float speed = 0.08f;
 	float rotSpeed = 2.0f;
 
@@ -2025,7 +2156,7 @@ void Animation() {
 
 
 	// ========== ARAÑA ==========
-	
+
 
 	// Movimiento de la cabeza
 	cabezaR = sin(glfwGetTime() * 2.5f) * 10.0f;
@@ -2113,7 +2244,113 @@ void Animation() {
 		}
 	}
 
+	// ===================== FLUJO DE ANIMACIÓN ======================
 
+	float deltaTime = obtenerDeltaTiempo();  // Función para obtener el tiempo entre frames
+	tiempoEstado += deltaTime;
+
+	switch (estadoMosca) {
+	case DESPEGANDO:
+		torsoR += deltaTime * 20.0f;  // Inclinación del torso hacia adelante
+		alaMoscaR += sin(glfwGetTime() * 50.0f) * 20.0f;  // Batido de las alas
+
+		// Animación de las patas en el despegue
+		pataMosca1R = sin(glfwGetTime() * 4.0f) * 15.0f;
+		pataMosca2R = sin(glfwGetTime() * 4.5f) * 15.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f) * 15.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f) * 15.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f) * 15.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f) * 15.0f;
+
+		// Elevar la mosca mientras despegas
+		alturaMosca += deltaTime * 1.0f;
+
+		// Asegurarse de que la altura no baje de 6.621f
+		if (alturaMosca < 6.621f) {
+			alturaMosca = 6.621f;
+		}
+		if (alturaMosca > 14.8594f) {
+			alturaMosca = 14.8594f;
+		}
+
+		// Cambiar al estado de volando si la mosca ha despegado
+		if (torsoR > 15.0f) {
+			estadoMosca = VOLANDO;
+			tiempoEstado = 0.0f;  // Resetear el tiempo cuando cambia el estado
+		}
+		break;
+
+	case VOLANDO:
+		torsoR = sin(glfwGetTime() * 2.0f) * 2.0f;  // Movimiento del torso (oscilación)
+		alaMoscaR = sin(glfwGetTime() * 50.0f) * 30.0f;  // Batido rápido de las alas
+
+		// Animación de las patas al volar
+		pataMosca1R = sin(glfwGetTime() * 4.0f) * 15.0f;
+		pataMosca2R = sin(glfwGetTime() * 4.5f) * 15.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f) * 15.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f) * 15.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f) * 15.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f) * 15.0f;
+
+		// Oscilación suave en la altura
+		alturaMosca += sin(glfwGetTime() * 0.5f) * 0.05f;
+
+		// Asegurarse de que la altura no baje de 6.621f
+		if (alturaMosca < 6.621f) {
+			alturaMosca = 6.621f;
+		}
+		if (alturaMosca > 14.8594f) {
+			alturaMosca = 14.8594f;
+		}
+
+		// Cambiar al estado de aterrizaje después de cierto tiempo
+		if (tiempoEstado > 5.0f) {
+			estadoMosca = ATERRIZANDO;
+			tiempoEstado = 0.0f;  // Resetear tiempoEstado
+		}
+		break;
+
+	case ATERRIZANDO:
+		torsoR -= deltaTime * 20.0f;  // Reducir la inclinación del torso hacia atrás
+		alaMoscaR = sin(glfwGetTime() * 30.0f) * 10.0f;  // Batido suave de las alas al aterrizar
+
+		// Animación de las patas al aterrizar
+		pataMosca1R = sin(glfwGetTime() * 4.0f) * 10.0f;
+		pataMosca2R = sin(glfwGetTime() * 4.5f) * 10.0f;
+		pataMosca3R = sin(glfwGetTime() * 5.0f) * 10.0f;
+		pataMosca4R = sin(glfwGetTime() * 3.0f) * 10.0f;
+		pataMosca5R = sin(glfwGetTime() * 3.5f) * 10.0f;
+		pataMosca6R = sin(glfwGetTime() * 2.5f) * 10.0f;
+
+		// Reducir la altura mientras aterriza
+		alturaMosca -= deltaTime * 0.5f;
+
+		// Asegurarse de que la altura no baje de 6.621f
+		if (alturaMosca < 6.621f) {
+			alturaMosca = 6.621f;
+			estadoMosca = DETENIDO;  // Detener la animación
+			tiempoEstado = 0.0f;  // Resetear el tiempo al detener la animación
+		}
+		break;
+
+	case DETENIDO:
+		// La mosca se queda en su altura mínima (6.621f) y no hace más movimientos
+		alaMoscaR = 0.0f;  // Detener el batido de alas
+		torsoR = 0.0f;     // Detener movimiento del torso
+		pataMosca1R = 0.0f;  // Detener movimiento de las patas
+		pataMosca2R = 0.0f;
+		pataMosca3R = 0.0f;
+		pataMosca4R = 0.0f;
+		pataMosca5R = 0.0f;
+		pataMosca6R = 0.0f;
+
+		// Esperar 2 segundos en el estado DETENIDO y luego reiniciar la animación
+		if (tiempoEstado > 2.0f) {
+			estadoMosca = DESPEGANDO;  // Reiniciar la animación desde DESPEGANDO
+			tiempoEstado = 0.0f;  // Resetear el tiempo
+		}
+		break;
+	}
 }
 
 
