@@ -552,7 +552,7 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 	
-	//Model lab((char*)"Models/prueba.obj");
+	Model lab((char*)"Models/prueba.obj");
 	/*	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
@@ -1121,11 +1121,11 @@ int main()
 		//Carga de modelo 
 		// =-=-=- LAB ACTUAL =-=-=-
 
-		/*model = glm::mat4(1);
+		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		lab.Draw(lightingShader);*/
+		lab.Draw(lightingShader);
 		
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.0f, escalaY_LabViejo, 1.0f));
