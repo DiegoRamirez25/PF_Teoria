@@ -416,6 +416,11 @@ float pataMosca5R = 0.0f;
 float pataMosca6R = 0.0f;
 float alturaMosca = 6.621f; // Altura inicial
 
+float frecuenciaDespegue, amplitudDespegue, vibracionVuelo;
+float frecuenciaVuelo, amplitudVuelo;
+float frecuenciaAterrizaje, amplitudAterrizaje;
+float frecuenciaDetenido, amplitudDetenido;
+
 enum EstadoMosca {
 	EN_REPOSO,
 	DESPEGANDO,
@@ -552,7 +557,7 @@ int main()
 	Shader skyboxshader("Shader/Skybox.vs", "Shader/Skybox.frag");
 	//=-=-=- LAB ACTUAL =-=-=-
 	
-	Model lab((char*)"Models/LAB.obj");
+	Model lab((char*)"Models/prueba.obj");
 	/*	Model lab((char*)"Models/LAB.obj");
 	Model medicion((char*)"Models/MEDICION.obj");
 	Model medicion2((char*)"Models/MEDICION2.obj");
@@ -2238,16 +2243,23 @@ void Animation() {
 
 	// ===================== ANIMACION MOSCA ======================
 
-	float deltaTime = obtenerDeltaTiempo();  // Función para obtener el tiempo entre frames
-	tiempoEstado += deltaTime;
+	// Definir las variables fuera del switch
+	
+	// Definir las variables fuera del switch
+	float frecuenciaDespegue, amplitudDespegue, vibracionVuelo;
+	float frecuenciaVuelo, amplitudVuelo;
+	float frecuenciaAterrizaje, amplitudAterrizaje;
+	float frecuenciaDetenido, amplitudDetenido;
 
 	switch (estadoMosca) {
 	case DESPEGANDO:
 		// Movimiento suave del torso hacia adelante
 		torsoR += deltaTime * 15.0f;  // Reduce la velocidad para que no sea tan rápido
 
-		// Batido de las alas, con una frecuencia más baja para que sea menos frenético
-		alaMoscaR = sin(glfwGetTime() * 20.0f) * 25.0f;  // Batido más realista
+		// Inicialización de las variables para el batido de las alas en despegue
+		frecuenciaDespegue = 20.0f + sin(glfwGetTime() * 0.2f) * 5.0f;  // Frecuencia variable
+		amplitudDespegue = 25.0f + cos(glfwGetTime() * 0.3f) * 5.0f;  // Amplitud variable
+		alaMoscaR = sin(glfwGetTime() * frecuenciaDespegue) * amplitudDespegue;  // Batido de alas
 
 		// Animación de las patas en el despegue, usando desfases para evitar sincronización perfecta
 		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 15.0f;
@@ -2274,13 +2286,19 @@ void Animation() {
 			tiempoEstado = 0.0f;  // Resetear el tiempo cuando cambia el estado
 		}
 		break;
-	
+
 	case VOLANDO:
 		// Movimiento del torso (oscilación controlada)
 		torsoR = sin(glfwGetTime() * 1.5f) * 5.0f;  // Limitar el rango de movimiento del torso
 
-		// Batido de las alas (frecuencia reducida para un batido más realista)
-		alaMoscaR = sin(glfwGetTime() * 20.0f) * 30.0f;  // Batido de alas
+		// Inicialización de las variables para el batido de las alas en vuelo
+		frecuenciaVuelo = 20.0f + sin(glfwGetTime() * 0.2f) * 5.0f;  // Frecuencia variable
+		amplitudVuelo = 30.0f + cos(glfwGetTime() * 0.3f) * 5.0f;  // Amplitud variable
+		alaMoscaR = sin(glfwGetTime() * frecuenciaVuelo) * amplitudVuelo;  // Batido de alas
+
+		// Oscilación rápida al final del batido (simulando vibración)
+		vibracionVuelo = sin(glfwGetTime() * 80.0f) * 5.0f;
+		alaMoscaR += vibracionVuelo;
 
 		// Animación de las patas al volar (variar ligeramente el desfase entre las patas)
 		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 15.0f;
@@ -2312,8 +2330,10 @@ void Animation() {
 		// Reducir la inclinación del torso de forma más suave
 		torsoR -= deltaTime * 10.0f;  // Reducir la velocidad para que el torso no se incline demasiado rápido
 
-		// Batido suave de las alas al aterrizar (frecuencia más baja para un movimiento más suave)
-		alaMoscaR = sin(glfwGetTime() * 15.0f) * 10.0f;  // Reducir la frecuencia para batido suave de alas
+		// Inicialización de las variables para el batido de las alas en aterrizaje
+		frecuenciaAterrizaje = 15.0f + sin(glfwGetTime() * 0.2f) * 5.0f;  // Frecuencia variable
+		amplitudAterrizaje = 10.0f + cos(glfwGetTime() * 0.3f) * 5.0f;  // Amplitud variable
+		alaMoscaR = sin(glfwGetTime() * frecuenciaAterrizaje) * amplitudAterrizaje;  // Batido suave de alas
 
 		// Animación de las patas al aterrizar, con menor amplitud
 		pataMosca1R = sin(glfwGetTime() * 4.0f + 0.0f) * 5.0f;  // Menor amplitud
@@ -2335,8 +2355,10 @@ void Animation() {
 		break;
 
 	case DETENIDO:
-		// Mantener el batido suave de las alas (con pequeña oscilación)
-		alaMoscaR = sin(glfwGetTime() * 5.0f) * 5.0f;  // Batido suave y lento
+		// Inicialización de las variables para el batido de las alas cuando la mosca está detenida
+		frecuenciaDetenido = 5.0f + sin(glfwGetTime() * 0.2f) * 2.0f;  // Frecuencia variable
+		amplitudDetenido = 5.0f + cos(glfwGetTime() * 0.3f) * 2.0f;  // Amplitud variable
+		alaMoscaR = sin(glfwGetTime() * frecuenciaDetenido) * amplitudDetenido;  // Batido suave y lento
 
 		// Detener el movimiento del torso
 		torsoR = 0.0f;  // Torso completamente detenido
@@ -2355,8 +2377,9 @@ void Animation() {
 			tiempoEstado = 0.0f;  // Resetear el tiempo
 		}
 		break;
-
 	}
+
+
 }
 
 
